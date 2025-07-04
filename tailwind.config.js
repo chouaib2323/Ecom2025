@@ -11,6 +11,8 @@ export default {
         },
         fontFamily: {
             inter: ['Inter', 'sans-serif'],
+            roboto: ['Roboto', 'sans-serif'],
+            Lobster: ['Libertinus Mono', 'monospace'],
           },
       },
     },
