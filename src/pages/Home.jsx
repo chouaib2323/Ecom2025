@@ -11,9 +11,17 @@ import RVector from '../assets/RVector.png';
 import white from '../assets/WHITE.png'
 import black from '../assets/black.png'
 
+import PH14 from '../assets/PH14.png'
+import PH15 from '../assets/PH15.png'
+import PH16 from '../assets/PH16.png'
+import PH17 from '../assets/PH17.png'
+
 function Home() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+
+  const SprevRef = useRef(null);
+  const SnextRef = useRef(null);
   const [isReady, setIsReady] = useState(false);
 
   // Force re-render after refs are attached
@@ -22,12 +30,12 @@ function Home() {
   }, []);
 
   return (
-    <div className="bg-[#f4f4f4] min-h-screen font-sans">
-      <section className="container mx-auto px-4 py-10">
+    <div className="bg-gray-100 ">
+      <section className="container mx-auto px-4 py-10 ">
 
         {/* Menu + Search */}
         <div className=" ">
-          <div className=" flex flex-col  text-sm text-gray-800 font-semibold mb-3">
+          <div className=" flex flex-col  text-sm text-gray-500 font-semibold mb-3">
             <Link to="">MEN</Link>
             <Link to="">WOMEN</Link>
             <Link to="">KIDS</Link>
@@ -54,14 +62,14 @@ function Home() {
           {/* Left Side Arrows */}
           <div className=" space-y-5 h-96  w-2/5  relative   ">
             <div>
-              <h1 className=" font-Lobster text-5xl ">
+              <h1 className=" font-Lobster text-gray-600 text-5xl ">
                 NEW <br/> COLLECTION
               </h1>
             </div>
-            <div className=" flex justify-between items-center space-x-5 absolute bottom-0 left-0 bg-gray-300 py-1 px-7">
-                <Link className="  text-xl">Go To Shop</Link>
+            <Link to='/Products' className=" cursor-pointer flex justify-between items-center space-x-5 absolute bottom-0 left-0 bg-gray-300 py-1 px-7">
+                <Link to='/Products' className="  text-xl text-gray-500">Go To Shop</Link>
                 <img className="w-8 h-auto " src={RVector} />
-              </div>
+              </Link>
             <div className=" flex flex-row gap-3  justify-end  absolute bottom-0 right-0">
 
             
@@ -116,9 +124,94 @@ function Home() {
               ))}
             </Swiper>
           )}
+
+
+
+</div>
+      </section>
+
+
+      <section>
+        <div className=" flex justify-between px-10">
+          <h1 className=" font-Lobster text-gray-600 text-5xl"> NEW<br/> THIS WEEK </h1>
+          <Link className=" text-gray-500 place-content-end" to =''>See All</Link>
+        </div>
+        
+        <div>
+        {isReady && (
+            <Swiper
+              spaceBetween={20}
+              slidesPerView={5}
+              navigation={{
+                prevEl: SprevRef.current,
+                nextEl: SnextRef.current,
+              }}
+              modules={[Navigation]}
+              className=" w-full h-auto pl-10  pt-4"
+            >
+              {[white,black,white,black,white,black].map((i) => (
+                <SwiperSlide key={i}>
+                  <div className="bg-white h-full rounded-lg overflow-hidden shadow-md">
+                    <img
+                      src={`${i}`}
+                      alt={`Slide ${i}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
+<div className="    flex justify-center py-5  space-x-3">
+<button
+              ref={SprevRef}
+              className="bg-gray-100 border-2 border-gray-300 text-gray-300 p-2  hover:bg-gray-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  strokeWidth="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button
+              ref={SnextRef}
+              className="bg-gray-100 border-2 border-gray-300 text-gray-300 p-2  hover:bg-gray-200"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round"
+                  strokeWidth="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+            </div>
         </div>
       </section>
-    </div>
+
+
+
+
+      <section className=" h-screen w-full ">
+
+        <div className=" grid place-items-center pt-10">
+          <h1 className=" text-4xl text-black font-roboto">
+          Our Approach to fashion design 
+          </h1>
+          <div className=" grid place-items-center text-gray-500 text-l"><p>at elegant vogue , we blend creativity with craftsmanship to create</p>
+          <p>fashion that transcends trends and stands the test of time each</p>
+          <p> design is meticulously crafted, ensuring the highest quelity</p>
+          <p>   exqulsite finish</p></div>
+        </div>
+
+<div className="  flex justify-between items-center space-x-10  h-2/3">
+<img className=" pl-10   "  src={PH16} />
+<img className="   mt-24"  src={PH14}/>
+<img className=" "  src={PH17}/>
+<img  className="h-96 mt-24 " src={PH15}/>
+</div>
+
+      </section>
+    </div >
   );
 }
 

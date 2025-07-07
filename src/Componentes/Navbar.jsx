@@ -24,13 +24,13 @@ function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.4 }}
-              className="top-0 h-full w-1/2 left-0    bg-gray-300 absolute  z-20 "
+              className="top-0 h-full w-1/2 left-0    bg-gray-200 absolute  z-20 "
             >
               <div className='   absolute right-2 top-4 ' onClick={() => setBurgerOpen(false)}>
                 <img className="w-8 h-auto  cursor-pointer" src={Vector} />
               </div>
               <div className=' space-y-5 grid place-items-center   h-full '>
-                <div className=' grid  space-y-5'>
+                <div className=' grid  space-y-5  font-semibold text-gray-500'>
               <Link className="font-serif" to="/">Home</Link>
               <Link className="font-serif" to="/Products">Products</Link>
               <Link className="font-serif" to="/New">New</Link>
@@ -41,11 +41,11 @@ function Navbar() {
         </AnimatePresence>
 
         {/* 🟦 Burger Menu */}
-        <div className="flex items-center space-x-5">
+        <div className="flex items-center space-x-8">
           <div onClick={() => setBurgerOpen(!burgerOpen)}>
-            <img className="w-6 h-auto cursor-pointer" src={burgermenu} />
+            <img className="w-6 md:hidden h-auto cursor-pointer" src={burgermenu} />
           </div>
-          <div className="md:flex space-x-5 hidden">
+          <div className="md:flex space-x-5 hidden font-semibold text-gray-500">
             <Link className="font-serif" to="/">Home</Link>
             <Link className="font-serif" to="/Products">Products</Link>
             <Link className="font-serif" to="/New">New</Link>
@@ -54,7 +54,7 @@ function Navbar() {
 
         {/* 🟥 Logo */}
         <div>
-          <img className="w-6 h-auto" src={logo} />
+          <img className="w-7 h-auto" src={logo} />
         </div>
 
         {/* 🟨 Shopping, Liked, Profile */}
