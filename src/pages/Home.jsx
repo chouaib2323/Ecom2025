@@ -57,10 +57,10 @@ function Home() {
         </div>
 
         {/* Vectors + Swiper Row */}
-        <div className="flex items-center gap-6    py-10  ">
+        <div className=" flex md:flex-row flex-col items-center gap-6    py-10  ">
           
           {/* Left Side Arrows */}
-          <div className=" space-y-5 h-96  w-2/5  relative   ">
+          <div className=" space-y-5 h-96 w-full  md:w-2/5  relative   ">
             <div>
               <h1 className=" font-Lobster text-gray-600 text-5xl ">
                 NEW <br/> COLLECTION
@@ -70,11 +70,8 @@ function Home() {
                 <Link to='/Products' className="  text-xl text-gray-500">Go To Shop</Link>
                 <img className="w-8 h-auto " src={RVector} />
               </Link>
+
             <div className=" flex flex-row gap-3  justify-end  absolute bottom-0 right-0">
-
-            
-
-              
             <button
               ref={prevRef}
               className="bg-gray-100 border-2 border-gray-300 text-gray-300 p-2  hover:bg-gray-200"
@@ -97,6 +94,7 @@ function Home() {
               </svg>
             </button>
             </div>
+
           </div>
 
           {/* Right Side Swiper */}
@@ -109,7 +107,7 @@ function Home() {
                 nextEl: nextRef.current,
               }}
               modules={[Navigation]}
-              className=" w-3/5 h-auto "
+              className=" w-full md:w-3/5 h-auto "
             >
               {[white,black,white,black,white,black].map((i) => (
                 <SwiperSlide key={i}>
@@ -141,7 +139,21 @@ function Home() {
         {isReady && (
             <Swiper
               spaceBetween={20}
-              slidesPerView={5}
+              breakpoints={{
+                0: {
+                  slidesPerView: 2, // Phone view (0px and up)
+                },
+                640: {
+                  slidesPerView: 3, // Small tablets and up
+                },
+                768: {
+                  slidesPerView: 5, // Medium devices
+                },
+                1024: {
+                  slidesPerView: 5, // Larger screens
+                },
+              }}
+            
               navigation={{
                 prevEl: SprevRef.current,
                 nextEl: SnextRef.current,
@@ -191,23 +203,23 @@ function Home() {
 
 
 
-      <section className=" h-screen w-full ">
+      <section className=" md:h-screen w-full ">
 
-        <div className=" grid place-items-center pt-10">
-          <h1 className=" text-4xl text-black font-roboto">
+        <div className=" md:grid md:place-items-center flex md:justify-center justify-between pt-10">
+          <h1 className=" text-3xl md:text-4xl text-black font-roboto">
           Our Approach to fashion design 
           </h1>
-          <div className=" grid place-items-center text-gray-500 text-l"><p>at elegant vogue , we blend creativity with craftsmanship to create</p>
+          <div className=" md:grid md:place-items-center text-gray-500 text-l"><p>at elegant vogue , we blend creativity with craftsmanship to create</p>
           <p>fashion that transcends trends and stands the test of time each</p>
           <p> design is meticulously crafted, ensuring the highest quelity</p>
           <p>   exqulsite finish</p></div>
         </div>
 
-<div className="  flex justify-between items-center space-x-10  h-2/3">
-<img className=" pl-10   "  src={PH16} />
-<img className="   mt-24"  src={PH14}/>
+<div className="  flex md:flex-row flex-col md:justify-between items-center md:space-x-10  md:h-2/3">
+<img className=" md:pl-10   "  src={PH16} />
+<img className="   md:mt-24"  src={PH14}/>
 <img className=" "  src={PH17}/>
-<img  className="h-96 mt-24 " src={PH15}/>
+<img  className=" md:h-96 md:mt-24 " src={PH15}/>
 </div>
 
       </section>
