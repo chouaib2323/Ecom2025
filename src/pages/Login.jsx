@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../store/authSlice'; 
+import { jwtDecode } from 'jwt-decode'; 
+
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: ''
-  });
-
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  
+  const navigate = useNavigate();
+  const dispatch = useDispatch(); 
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     setError('');
     setSuccess('');
   };
@@ -22,10 +23,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/user/login', formData);
+      const res = await axios.post('http://localhost:5000/user/login', formData, {
+        withCredentials: true,
+      });
+
+      const token = res.data.token;
       setSuccess('Login successful!');
-      console.log('Token:', res.data.token);
-      // Save token if needed: localStorage.setItem('token', res.data.token);
+      console.log("Token:", token);
+
+   localStorage.setItem('token',token)
+
+      // Decode token to get user data
+      const user = jwtDecode(token); // 
+    
+
+      console.log(user)
+
+      // Redirect to homepage or dashboard
+     // navigate('/');
     } catch (err) {
       console.error('Login Error:', err);
       setError(err.response?.data?.message || 'Login failed');
@@ -36,10 +51,9 @@ const Login = () => {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h2 className="text-2xl font-bold text-black mb-6 text-center">Login</h2>
-
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         {success && <p className="text-green-500 text-sm mb-4">{success}</p>}
-
+        
         <input
           type="email"
           name="email"
