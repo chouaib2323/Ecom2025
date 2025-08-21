@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom'
 
 function AdminDashboard() {
   return (
-    <div>
+    <div className=' space-x-10 font-bold'>
         <Link to='/ProductForm'>Add product</Link>
-        <Link to='/AddCatigory'>add product category </Link>
+        <Link to='/AddCatigory'>Add a product category </Link>
+        <Link to='/DeleteProduct'>Delete a product</Link>
     </div>
   )
 }

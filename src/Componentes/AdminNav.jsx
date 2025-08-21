@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function AdminNav() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function AdminNav() {
 
   return (
     <nav className="bg-gray-900 text-white p-4 flex justify-between items-center shadow-md">
-      <div className="text-xl font-bold">Admin Dashboard</div>
+      <Link to='/AdminDashboard' className="text-xl font-bold">Admin Dashboard</Link>
       
       <div>
         {token ? (

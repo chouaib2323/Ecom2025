@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import axios from 'axios';
 
 import RVector from '../assets/RVector.png';
 
@@ -27,6 +28,29 @@ function Home() {
   useEffect(() => {
     setIsReady(true);
   }, []);
+
+
+  const [products, setProducts] = useState([]);
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const result = await axios.get('http://localhost:5000/user/getproducts', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setProducts(result.data);
+        console.log(result.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, [token]);
+
 
   return (
     <div className="bg-gray-100 ">
@@ -158,17 +182,20 @@ function Home() {
                 nextEl: SnextRef.current,
               }}
               modules={[Navigation]}
-              className=" w-full h-auto pl-10  pt-4"
+              className=" w-full h-auto pl-10  pt-4 "
             >
-              {[white,black,white,black,white,black].map((i) => (
-                <SwiperSlide key={i}>
-                  <div className="bg-white h-full rounded-lg overflow-hidden shadow-md">
+              {products.flat().map(product => (
+                <SwiperSlide key={product.id}>
+                  <div className="bg-white h-full rounded-lg overflow-hidden w-full shadow-md  md:h-72  grid place-items-center  ">
                     <img
-                      src={`${i}`}
-                      alt={`Slide ${i}`}
-                      className="w-full h-full object-cover"
+                      src={`http://localhost:5000/uploads/${product.images[0]}`}
+                      alt={`Slide ${product}`}
+                      className="w-full h-full object-cover "
                     />
+                  
                   </div>
+                  <h1 className=" text-gray-700 text-xs text-left py-1 font-semibold">{product.name}</h1>
+                  <div className=" flex   justify-between text-black font-semibold"> <h1>{product.description}</h1><h1>{product.price} DA</h1> </div>
                 </SwiperSlide>
               ))}
             </Swiper>
