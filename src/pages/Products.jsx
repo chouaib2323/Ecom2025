@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -65,6 +66,7 @@ const Products = () => {
     return matchesSearch;
   });
 
+ 
   return (
     <div className="flex flex-col lg:flex-row px-6 lg:px-20 py-8 gap-10 bg-gray-100">
       {/* Sidebar Filters */}
@@ -178,26 +180,42 @@ const Products = () => {
 
             return (
               <div key={product.id} className="">
-                <div className="bg-white h-full rounded-lg overflow-hidden w-full shadow-md md:h-72 grid place-items-center relative">
-                  <img
-                    src={`http://localhost:5000/uploads/${product.images[0]}`}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                  {!isAvailable && (
-                    <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
-                      Out of Stock
-                    </span>
-                  )}
-                </div>
-                <h1 className="text-gray-700 text-xs text-left py-1 font-semibold">
-                  {product.name}
-                </h1>
-                <div className="flex justify-between text-black font-semibold">
-                  <h1>{product.description}</h1>
-                  <h1>{product.price} DA</h1>
-                </div>
-              </div>
+  <div className="relative group bg-white h-full rounded-lg overflow-hidden w-full shadow-md md:h-72">
+    {/* Product Image */}
+    <img
+      src={`http://localhost:5000/uploads/${product.images[0]}`}
+      alt={product.name}
+      className="w-full h-full object-cover transition duration-500 group-hover:blur-sm"
+    />
+
+    {/* Hover Button */}
+    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-500">
+      <Link
+        to={`http://localhost:5173/ProductShow/${product.id}`}
+        className="px-4 py-2 bg-black text-white rounded-xl shadow-lg hover:bg-gray-800 transition transform group-hover:scale-110"
+      >
+        View Details
+      </Link>
+    </div>
+
+    {/* Out of Stock Label */}
+    {!isAvailable && (
+      <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
+        Out of Stock
+      </span>
+    )}
+  </div>
+
+  {/* Product Info */}
+  <h1 className="text-gray-700 text-xs text-left py-1 font-semibold">
+    {product.name}
+  </h1>
+  <div className="flex justify-between text-black font-semibold">
+    <h1>{product.description}</h1>
+    <h1>{product.price} DA</h1>
+  </div>
+</div>
+
             );
           })}
         </div>

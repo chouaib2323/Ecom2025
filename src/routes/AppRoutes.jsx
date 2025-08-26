@@ -11,7 +11,7 @@ import ProductForm from '../pages/ProductForm';
 import AddCatigory from '../pages/AddCatigory';
 import AdminLayout from '../pages/AdminLayout';
 import DeleteProduct from '../pages/DeleteProduct';
-
+import ProductShow from '../pages/ProductShow';
 export default function AppRoutes() {
   return (
     <Routes>
@@ -20,6 +20,7 @@ export default function AppRoutes() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/ProductShow/:id" element={<ProductShow />} />
       </Route>
       <Route path="/AdminLogin" element={<AdminLogin/>} />
       
@@ -29,6 +30,7 @@ export default function AppRoutes() {
       <Route path="/ProductForm" element={<ProductForm/>} />
       <Route path="/AddCatigory" element={<AddCatigory/>} />
       <Route path="/DeleteProduct" element={<DeleteProduct/>} />
+      
       </Route>
 
     </Routes>

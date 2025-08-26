@@ -21,7 +21,7 @@ const token = localStorage.getItem('token')
     fetchProducts();
   }, []);
 
-  // ✅ Delete a product
+  //  Delete a product
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
 
