@@ -22,7 +22,7 @@ function Navbar() {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
+console.log(cartItems)
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -137,12 +137,12 @@ function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.4 }}
-            className="fixed top-0 right-0 h-screen w-80 bg-white shadow-lg z-30 flex flex-col"
+            className="fixed top-0 right-0 h-screen w-80 bg-gray-300 shadow-lg z-30 flex flex-col"
           >
             {/* Header */}
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="font-bold text-lg">Shopping Cart</h2>
-              <button onClick={() => setCartOpen(false)} className="text-red-500 font-bold">X</button>
+              <button onClick={() => setCartOpen(false)} className="text-black font-bold">X</button>
             </div>
 
             {/* Cart Items */}
@@ -152,10 +152,12 @@ function Navbar() {
               ) : (
                 cartItems.map((item) => (
                   <div key={item.id} className="flex justify-between items-center border-b pb-2">
-                    <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded" />
+                    <img src={`http://localhost:5000/uploads/${item.images[0]}`} alt={item.name} className="w-12 h-12 object-cover rounded" />
                     <div className="flex-1 px-2">
                       <h3 className="font-semibold">{item.name}</h3>
                       <p className="text-sm text-gray-500">${item.price}</p>
+                      <p className="text-sm text-gray-500">size : {item.selectedSize&&item.selectedSize}</p>
+                      <p className="text-sm text-gray-500">size : {item.selectedColor&&item.selectedColor}</p>
                       <div className="flex items-center space-x-2 mt-1">
                         <button
                           onClick={() => dispatch(decreaseQty(item.id))}

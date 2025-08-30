@@ -6,22 +6,30 @@ import { FreeMode, Thumbs } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/thumbs";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/cartSlice";
 
 const ProductShow = () => {
-  const { id } = useParams(); // get product id from route
+  const { id } = useParams();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [product, setProduct] = useState(null);
+
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
 
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/user/getproduct/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const res = await axios.get(
+          `http://localhost:5000/user/getproduct/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setProduct(res.data);
       } catch (error) {
         console.error("Error fetching product:", error);
@@ -35,18 +43,38 @@ const ProductShow = () => {
     return <p className="text-center mt-10">Loading...</p>;
   }
 
+  const handleAddToCart = () => {
+    if (product.colors?.length > 0 && !selectedColor) {
+      alert("Please select a color.");
+      return;
+    }
+    if (product.variants?.length > 0 && !selectedSize) {
+      alert("Please select a size.");
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        ...product,
+        selectedColor,
+        selectedSize,
+        quantity: 1,
+      })
+    );
+  };
+
   return (
     <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Image Gallery */}
       <div className="flex gap-4">
-        {/* Thumbnails (on the side) */}
+        {/* Thumbnails */}
         <Swiper
           onSwiper={setThumbsSwiper}
           direction="vertical"
           spaceBetween={10}
           slidesPerView={4}
-          freeMode={true}
-          watchSlidesProgress={true}
+          freeMode
+          watchSlidesProgress
           modules={[FreeMode, Thumbs]}
           className="w-24 h-[400px] rounded-lg overflow-hidden"
         >
@@ -94,7 +122,13 @@ const ProductShow = () => {
               {product.colors.map((color, i) => (
                 <button
                   key={i}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                  onClick={() => setSelectedColor(color)}
+                  className={`px-4 py-2 border rounded-lg 
+                    ${
+                      selectedColor === color
+                        ? "bg-black text-white border-black"
+                        : "hover:bg-gray-100"
+                    }`}
                 >
                   {color}
                 </button>
@@ -103,7 +137,7 @@ const ProductShow = () => {
           </div>
         )}
 
-        {/* Sizes from Variants */}
+        {/* Sizes */}
         {product.variants?.length > 0 && (
           <div className="mt-6">
             <h3 className="font-semibold mb-2">Sizes:</h3>
@@ -111,7 +145,13 @@ const ProductShow = () => {
               {product.variants.map((variant, i) => (
                 <button
                   key={i}
-                  className="px-4 py-2 border rounded-lg hover:bg-gray-100"
+                  onClick={() => setSelectedSize(variant.size)}
+                  className={`px-4 py-2 border rounded-lg 
+                    ${
+                      selectedSize === variant.size
+                        ? "bg-black text-white border-black"
+                        : "hover:bg-gray-100"
+                    }`}
                 >
                   {variant.size || "N/A"}
                 </button>
@@ -121,7 +161,10 @@ const ProductShow = () => {
         )}
 
         {/* Add to Cart */}
-        <button className="mt-8 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800">
+        <button
+          onClick={handleAddToCart}
+          className="mt-8 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800"
+        >
           Add to Cart
         </button>
       </div>
