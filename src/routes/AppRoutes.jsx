@@ -12,6 +12,7 @@ import AddCatigory from '../pages/AddCatigory';
 import AdminLayout from '../pages/AdminLayout';
 import DeleteProduct from '../pages/DeleteProduct';
 import ProductShow from '../pages/ProductShow';
+import Checkout from '../pages/Checkout'
 export default function AppRoutes() {
   return (
     <Routes>
@@ -20,6 +21,7 @@ export default function AppRoutes() {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Products" element={<Products />} />
+        <Route path="/Checkout" element={<Checkout />} />
         <Route path="/ProductShow/:id" element={<ProductShow />} />
       </Route>
       <Route path="/AdminLogin" element={<AdminLogin/>} />

@@ -11,6 +11,7 @@ import profile from "../assets/profile.png";
 import logo from "../assets/logo.png";
 import burgermenu from "../assets/burgermenu.png";
 import Vector from "../assets/Vector.png";
+import { Bubbles } from "lucide-react";
 
 function Navbar() {
   const [burgerOpen, setBurgerOpen] = useState(false);
@@ -186,20 +187,21 @@ console.log(cartItems)
             </div>
 
             {/* Footer */}
-            <div className="p-4 border-t">
-              <div className="flex justify-between font-semibold">
+            <div className="p-4 border-t ">
+              <div className="flex justify-between font-semibold mb-2 ">
                 <span>Total:</span>
                 <span>${cartTotal.toFixed(2)}</span>
               </div>
-              <button
+              <Link
+              to='/Checkout'
                 onClick={() => {
                   alert("Proceeding to checkout...");
                   setCartOpen(false);
                 }}
-                className="mt-4 w-full bg-blue-500 text-white py-2 rounded"
+                className="mt-2  flex flex-1 justify-center  w-full bg-gray-500 text-white py-2 rounded "
               >
                 Checkout
-              </button>
+              </Link>
               <button
                 onClick={() => dispatch(clearCart())}
                 className="mt-2 w-full bg-gray-200 text-gray-700 py-2 rounded"

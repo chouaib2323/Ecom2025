@@ -133,7 +133,7 @@ function Home() {
               className=" w-full md:w-3/5 h-auto "
             >
               {[white,black,white,black,white,black].map((i) => (
-                <SwiperSlide key={i}>
+                <SwiperSlide >
                   <div className="bg-white h-full rounded-lg overflow-hidden shadow-md">
                     <img
                       src={`${i}`}
